@@ -47,7 +47,7 @@ class Application extends Injectable
 
         this->router();
 
-        require this->_bootstrap->getRoutersPath() . DIRECTORY_SEPARATOR . "router.php";
+        require this->_bootstrap->getAppPath() . DIRECTORY_SEPARATOR . "router.php";
 
         if !uri {
             fetch uri, _SERVER["REQUEST_URI"];

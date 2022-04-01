@@ -113,6 +113,6 @@ class Facade {
      */
     public static function getFacadeAccessor() 
     {
-        throw new \RuntimeException("请使用子类重写方法getFacadeAccessor");
+        throw new \RuntimeException("Please use subclass rewriting method getFacadeAccessor");
     }
 }

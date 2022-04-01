@@ -24,11 +24,22 @@ class Bootstrap extends Injectable {
 
     public function __construct(string basePath, <DiInterface> container = null)
     {
+        var autoload; 
+
         if !is_dir(basePath) {
-            throw new \RuntimeException(basePath . " 不是一个有效的目录");
+            throw new \RuntimeException(basePath . " is not a valid directory");
         }
 
         this->setBathPath(basePath);
+
+        /**
+         *  加载vendor
+         */
+        let autoload =  this->getPath().DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
+
+        if (is_file(autoload)) {
+            require autoload;
+        }
 
         if container !== null {
             this->setDi(container);
@@ -38,6 +49,10 @@ class Bootstrap extends Injectable {
 
         // 门面初始化
         Facade::clearResolvedInstances();  
+
+        /**
+         * 设置门面依赖
+         */
         Facade::setDI(this->getDi());
 
         /**
@@ -53,6 +68,8 @@ class Bootstrap extends Injectable {
 
             let config = [
                 "app": require this->getConfigPath() . DIRECTORY_SEPARATOR . "app.php",
+                "cache": require this->getConfigPath() . DIRECTORY_SEPARATOR . "cache.php",
+                "logger": require this->getConfigPath() . DIRECTORY_SEPARATOR . "logger.php",
                 "databases": require this->getConfigPath() . DIRECTORY_SEPARATOR . "databases.php"
             ];
 
@@ -157,7 +174,27 @@ class Bootstrap extends Injectable {
             this->loader()->registerNamespaces(["App": this->getAppPath()]);
 
             require this->getAppPath() . DIRECTORY_SEPARATOR . "bootstrap.php";
+
+            this->loader()->register();
+
+            this->registerServiceProviders();
         }
 
+    }
+
+    /**
+     * 注册全局服务
+     */
+    private function registerServiceProviders() {
+        var providers, provider, providerItem;
+
+        let providers = this->_config->app->providers;
+        if providers {
+            for _, providerItem in providers->toArray() {
+                let  provider = new {providerItem}();
+    
+                provider->register(this->getDi());
+            }
+        }
     }
 }

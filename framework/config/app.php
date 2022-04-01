@@ -5,7 +5,7 @@ return [
     /**
      * Application Name
      */
-    'name' => getenv('APP_NAME'),
+    'name' => \Pine\Support\Facades\Env::env('APP_NAME', "pine"),
 
     /**
      * Application Environment
@@ -39,6 +39,8 @@ return [
 
 
     /**
+     * 一般注册门面模式
+     *
      * Class Aliases
      */
     'aliases' => [
@@ -49,6 +51,8 @@ return [
      * Autoloaded Service Providers
      */
     'providers' => [
-
+        \App\Providers\DatabaseProvider::class,
+        \App\Providers\LoggerProvider::class,
+        \App\Providers\CacheProvider::class,
     ]
 ];

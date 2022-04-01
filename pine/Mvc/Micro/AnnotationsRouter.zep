@@ -69,7 +69,7 @@ class AnnotationsRouter extends Micro
         let handlerAnnotations = annotationsService->get(fullControllerName);
         
         if typeof handlerAnnotations != "object" {
-            throw new \Exception("路由控制不存在");
+            throw new \Exception("Class " . fullControllerName . " is not exsit");
         }
         
         if !prefix {
