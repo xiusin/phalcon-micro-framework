@@ -1,4 +1,4 @@
-namespace Pine\Mvc\Micro;
+namespace Pine;
 
 use Phalcon\Mvc\Micro;
 use Phalcon\Mvc\Micro\Collection as MicroCollection;
@@ -6,6 +6,8 @@ use Phalcon\Annotations\AdapterInterface;
 use Phalcon\Mvc\Router\RouteInterface;
 use Phalcon\Di\Injectable;
 use Pine\Bootstrap;
+use Pine\Mvc\Micro\AnnotationsRouter;
+use Pine\Support\Facades\Env;
 
 /**
  * Application 应用类
@@ -20,10 +22,16 @@ class Application extends Injectable
 
     protected basePath;
 
+    protected _env;
+
     static app;
 
     public function __construct(string! basePath, <\Phalcon\Di\DiInterface> container = null) {
         
+        \Pine\Env::enablePutenv();
+
+        let this->_env = new \Pine\Env();
+
         let this->basePath = basePath;
 
         if container !== null {
@@ -36,14 +44,22 @@ class Application extends Injectable
 
         if !this->_bootstrap {
             let this->_bootstrap = new Bootstrap(this->basePath, this->getDi());
-
-            this->getDi()->setShared("bootstrap", this->_bootstrap);
         }
+    }
+
+    public function getBootstrap() -> <Bootstrap>
+    {
+        return this->_bootstrap;
+    }
+
+    public function bootstrap() 
+    {
+        this->_bootstrap->bootstrap();
     }
 
     public function run(uri = null)
     {
-        this->_bootstrap->bootstrap(uri);
+        this->bootstrap();
 
         this->router();
 
@@ -67,5 +83,12 @@ class Application extends Injectable
             this->getDi()->setShared("micro", this->_router);
         }   
         return this->_router;
+    }
+
+    /**
+     * 获取环境变量
+     */
+    public function env(string key, var _default = null) {
+        return this->_env->get(key, _default);
     }
 }

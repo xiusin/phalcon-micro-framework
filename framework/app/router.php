@@ -11,4 +11,8 @@ Router::group("/api", function () {
     Router::get("/{name}", function ($name) {
         return "hello $name";
     });
+
+    Router::get("/info", function () {
+        phpinfo();
+    });
 });

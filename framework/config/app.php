@@ -5,7 +5,7 @@ return [
     /**
      * Application Name
      */
-    'name' => \Pine\Support\Facades\Env::env('APP_NAME', "pine"),
+    'name' => getenv('APP_NAME'),
 
     /**
      * Application Environment
@@ -44,7 +44,7 @@ return [
      * Class Aliases
      */
     'aliases' => [
-
+        "Env" => \Pine\Support\Facades\Env::class,
     ],
 
     /**
@@ -54,5 +54,5 @@ return [
         \App\Providers\DatabaseProvider::class,
         \App\Providers\LoggerProvider::class,
         \App\Providers\CacheProvider::class,
-    ]
+    ],
 ];

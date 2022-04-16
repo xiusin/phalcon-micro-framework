@@ -59,7 +59,7 @@
     },
     "namespace": "pine",
     "name": "pine",
-    "description": "",
+    "description": "Highly encapsulated Phalcon\\Micro development framework",
     "author": "xiusin",
     "version": "0.0.1",
     "verbose": true,

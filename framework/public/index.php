@@ -1,13 +1,13 @@
 <?php
 
-use Pine\Mvc\Micro\Application;
+use Pine\Application;
 
 $di = new \Phalcon\Di\FactoryDefault();
 
 $app = new Application(dirname(__DIR__), $di);
 
 try {
-    $app->run("/api/xiusin");
+    $app->run();
 } catch (Throwable $e) {
     echo $e->getMessage();
 }

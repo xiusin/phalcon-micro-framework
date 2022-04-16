@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+use Conso\Conso as PhalconCli;
+use Pine\Application;
+
+use Phalcon\Di\FactoryDefault\Cli as CliDi;
+
+$app = new Application(dirname(__DIR__), new CliDi());
+
+$cli = new PhalconCli(new \Conso\Input(), new \Conso\Output());
+
+/**
+ * 注册启动基本程序
+ */
+$app->bootstrap()->bootstrap();
+
+
+$commands = require $app->bootstrap()->getAppPath() . DIRECTORY_SEPARATOR . 'commands.php';
+
+
+/**
+ * @var $provider Provider
+ */
+$provider->commands($cli);
+
+$cli->run();

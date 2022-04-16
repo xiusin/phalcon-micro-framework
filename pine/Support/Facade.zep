@@ -40,14 +40,14 @@ class Facade {
      */
      public static function __callStatic(string method, array args)
      {
-         var instance;
-         let instance = self::getFacadeRoot();
+        var instance;
+        let instance = self::getFacadeRoot();
  
-         if (!instance) {
-             throw new \RuntimeException("A facade root has not been set.");
-         }
- 
-         return call_user_func_array([instance, method], args);   // ; instance->{method}(...);
+        if (!instance) {
+            throw new \RuntimeException("A facade root has not been set.");
+        }
+         
+        return call_user_func_array([instance, method], args);  
      }
 
     /**

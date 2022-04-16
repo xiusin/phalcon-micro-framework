@@ -12,12 +12,6 @@ class Bootstrap extends Injectable {
 
     public basePath;
 
-    /**
-     * 提供者注册
-     */
-    // protected _providers;
-
-
     protected _loader;
 
     protected _config;
@@ -31,6 +25,20 @@ class Bootstrap extends Injectable {
         }
 
         this->setBathPath(basePath);
+        
+        if container !== null {
+            this->setDi(container);
+        }
+
+        this->getDi()->setShared("bootstrap", this);
+
+        // 门面初始化
+        Facade::clearResolvedInstances();  
+
+        /**
+         * 设置门面依赖
+         */
+        Facade::setDI(this->getDi());
 
         /**
          *  加载vendor
@@ -41,19 +49,7 @@ class Bootstrap extends Injectable {
             require autoload;
         }
 
-        if container !== null {
-            this->setDi(container);
-        }
-
         let this->_providers = [];
-
-        // 门面初始化
-        Facade::clearResolvedInstances();  
-
-        /**
-         * 设置门面依赖
-         */
-        Facade::setDI(this->getDi());
 
         /**
          * 初始化配置对象
@@ -159,8 +155,7 @@ class Bootstrap extends Injectable {
         let this->bootstraped = false;
         return this;
     }
-
-
+    
     /**
      * 驱动前置逻辑
      */

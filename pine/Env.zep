@@ -1,6 +1,5 @@
 namespace Pine;
 
-
 class Env {
     protected static _putenv;     
 
@@ -16,7 +15,7 @@ class Env {
     /**
      * 获取环境变量
      */
-    public static function get(string name, var _default = null)
+    public function get(string name, var _default = null)
     {
         if isset(Env::_env[name]) {
             return Env::_env[name];
@@ -36,7 +35,7 @@ class Env {
     /**
      * 设置环境变量
      */
-    public static function set(string name, string value)
+    public function set(string name, string value)
     {
         if Env::_putenv {
             putenv(name . "=" . value);
@@ -47,6 +46,7 @@ class Env {
         }
 
         let Env::_env[name] = value;
+        
         let _ENV[name] = value;
     }
 
