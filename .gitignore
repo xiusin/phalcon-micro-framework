@@ -3,7 +3,6 @@ ext/
 vendor/
 composer.lock
 .zephir
-composer.json
 compile*.log
 doc
 ide
