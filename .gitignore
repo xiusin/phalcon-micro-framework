@@ -6,3 +6,4 @@ composer.lock
 compile*.log
 doc
 ide
+/.idea/
