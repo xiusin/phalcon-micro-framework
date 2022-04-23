@@ -59,14 +59,13 @@
     },
     "namespace": "pine",
     "name": "pine",
-    "description": "Highly encapsulated Phalcon\\Micro development framework",
+    "description": "Highly encapsulated phalcon development framework",
     "author": "xiusin",
     "version": "0.0.1",
     "verbose": true,
     "requires": {
         "extensions": [
             "phalcon",
-            "sync",
             "pdo_sqlite"
         ]
     }

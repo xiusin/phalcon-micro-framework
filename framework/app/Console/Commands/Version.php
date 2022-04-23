@@ -15,8 +15,13 @@ class Version extends Command
      */
     protected static $defaultName = 'app:version';
 
+    protected static $defaultDescription = 'framework version';
+
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->success("version v0.0.1-dev");
+        $output->writeln("pine:      version v0.0.1-dev");
+        $output->writeln("phalcon:   version " . \Phalcon\Version::get());
+        $output->writeln("php:       version " . phpversion());
+        return Command::SUCCESS;
     }
 }

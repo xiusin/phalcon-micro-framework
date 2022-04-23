@@ -62,7 +62,7 @@ class Application extends Injectable
      */
     public function runCommand() {
         var commands, command, cls, console;
-        let commands = require this->getBootstrap()->getConfigPath() . DIRECTORY_SEPARATOR . "commands.php";
+        let commands = require this->getBootstrap()->getAppPath() . DIRECTORY_SEPARATOR . "commands.php";
         let console = this->getDi()->getShared("console");
 
         for cls in commands {

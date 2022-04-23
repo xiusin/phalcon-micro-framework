@@ -5,11 +5,15 @@ use Phalcon\Di\FactoryDefault\Cli as CliDi;
 
 $di = new CliDi();
 
-$app = new Application(__DIR__, $di);
+$app = new Application(dirname(__DIR__), $di);
 
 $app->bootstrap();
 
-$application = new Symfony\Component\Console\Application();
+$application = new \Crunz\Application("pine", "");
+
+$application->setAutoExit(true);
+
+$application->setCatchExceptions(true);
 
 $di->setShared("console", $application);
 
