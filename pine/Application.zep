@@ -57,6 +57,21 @@ class Application extends Injectable
         this->_bootstrap->bootstrap();
     }
 
+    /**
+     * 运行命令行数据
+     */
+    public function runCommand() {
+        var commands, command, cls, console;
+        let commands = require this->getBootstrap()->getConfigPath() . DIRECTORY_SEPARATOR . "commands.php";
+        let console = this->getDi()->getShared("console");
+
+        for cls in commands {
+            let command = new {cls}();
+            console->add(command);
+        }
+        console->run();
+    }
+
     public function run(uri = null)
     {
         this->bootstrap();

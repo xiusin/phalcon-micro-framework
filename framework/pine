@@ -1,26 +1,20 @@
 #!/usr/bin/env php
 <?php
-use Conso\Conso as PhalconCli;
 use Pine\Application;
-
 use Phalcon\Di\FactoryDefault\Cli as CliDi;
 
-$app = new Application(dirname(__DIR__), new CliDi());
+$di = new CliDi();
 
-$cli = new PhalconCli(new \Conso\Input(), new \Conso\Output());
+$app = new Application(__DIR__, $di);
 
-/**
- * 注册启动基本程序
- */
-$app->bootstrap()->bootstrap();
+$app->bootstrap();
 
+$application = new Symfony\Component\Console\Application();
 
-$commands = require $app->bootstrap()->getAppPath() . DIRECTORY_SEPARATOR . 'commands.php';
+$di->setShared("console", $application);
 
-
-/**
- * @var $provider Provider
- */
-$provider->commands($cli);
-
-$cli->run();
+try {
+    $app->runCommand();
+} catch (Throwable $e) {
+    echo $e->getMessage();
+}
