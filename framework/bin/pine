@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+
+use App\Pine\Console;
 use Pine\Application;
 use Phalcon\Di\FactoryDefault\Cli as CliDi;
 
@@ -7,20 +9,11 @@ $di = new CliDi();
 
 $app = new Application(dirname(__DIR__), $di);
 
-define("PINE_BIN_PATH", __FILE__);
+const PINE_BIN_PATH = __FILE__;
 
 $app->bootstrap();
 
-$application = new \Crunz\Application("pine", "");
+$console = new Console("pine", "");
 
-$application->setAutoExit(true);
+$app->runCommand();
 
-$application->setCatchExceptions(true);
-
-$di->setShared("console", $application);
-
-try {
-    $app->runCommand();
-} catch (Throwable $e) {
-    echo $e->getMessage();
-}
