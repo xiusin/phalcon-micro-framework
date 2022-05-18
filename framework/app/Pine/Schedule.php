@@ -6,10 +6,8 @@ use Crunz\Event;
 
 class Schedule extends \Crunz\Schedule
 {
-    public static $BIN = "./bin/pine";
-
     public function command(string $command, $parameters = []): Event
     {
-        return $this->run(self::$BIN . " " . $command, $parameters);
+        return $this->run(PINE_BIN_PATH . " " . $command, $parameters);
     }
 }

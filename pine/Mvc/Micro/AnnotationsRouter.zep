@@ -62,6 +62,10 @@ class AnnotationsRouter extends Micro
          */
         let annotationsService = container->getShared("annotations");
 
+        if !annotationsService {
+            throw new \Exception("service 'annotations' not exist");
+        }
+
         let collection = new MicroCollection();
 
         collection->setHandler(fullControllerName, true);
